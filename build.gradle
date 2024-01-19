@@ -1,0 +1,64 @@
+
+buildscript{
+    repositories {
+        mavenCentral()
+        dependencies{
+            classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVer"
+            classpath "io.spring.gradle:dependency-management-plugin:$springDepMngVer"
+        }
+    }
+}
+
+plugins {
+    id 'java'
+    id 'application'
+}
+
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group 'org.andreyz.poc'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    //implementation 'org.apache.kafka:kafka-clients:2.7.0'
+    implementation platform("ai.djl:bom:$djlVer")
+    implementation "ai.djl:api"
+    implementation "ai.djl:model-zoo"
+    //runtimeOnly "ai.djl.pytorch:pytorch-engine"
+    //runtimeOnly "ai.djl.pytorch:pytorch-native-auto:$nativePytorchVer"
+    runtimeOnly "ai.djl.mxnet:mxnet-engine"
+    runtimeOnly "ai.djl.mxnet:mxnet-native-auto:$nativeMxnetVer"
+    //runtimeOnly "ai.djl.mxnet:mxnet-native-mkl:$nativeMxnetVer"
+    //runtimeOnly "ai.djl.tensorflow:tensorflow-engine:$nativeTensorFlowVer"
+    //implementation "ai.djl.tensorflow:tensorflow-api:$nativeTensorFlowVer"
+    //runtimeOnly "ai.djl.tensorflow:tensorflow-native-cpu:2.4.1"
+
+    implementation "org.springframework.boot:spring-boot-starter:$springBootVer"
+    implementation "com.oracle.jdbc:ojdbc8:$oraJdbcVer"
+    //implementation "com.oracle.ojdbc:ojdbc8:$oraJdbcVer"
+    implementation "com.fasterxml.jackson.core:jackson-core:$jacksonVer"
+    implementation "com.fasterxml.jackson.core:jackson-annotations:$jacksonVer"
+    implementation "com.fasterxml.jackson.core:jackson-databind:$jacksonVer"
+    implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jacksonVer"
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVer"
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation "org.springframework.kafka:spring-kafka:$kafkaVer"
+
+    compileOnly "org.projectlombok:lombok:$lombokVer"
+    annotationProcessor "org.projectlombok:lombok:$lombokVer"
+
+}
+
+jar {
+    enabled =false
+}
+
+description = 'ai-java-djl-mlp-app'
